@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Донаты для madKULOLO - поддержи деда на Twitch!</title>
+    <meta name="title" content="Донаты для madKULOLO - поддержи деда на Twitch!">
+    <meta name="description" content="Поддержи стримера madKULOLO на Twitch! Донаты на жизнь, улучшение контента и хорошее настроение деда. Присоединяйся к кринж-угару!">
+    <meta property="og:title" content="Донат для madKULOLO - поддержи деда!">
+    <meta property="og:description" content="Поддержи стримера madKULOLO на Twitch! Донаты на жизнь, улучшение контента и хорошее настроение деда. Присоединяйся к кринж-угару!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://v2.deduso.su/">
+    <meta property="og:image" content="https://v2.deduso.su/images/logo.png">
+    <meta name="keywords" content="донат, madKULOLO, Twitch, стрим, поддержка, пожертвование, кринж, угар, переходник, мемы, дед, дедус, донейшн, донейшн алёрт, мемный алёрт, батя гордился бы тобой, поддержи деда, донат на жизнь, донат на контент">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="madKULOLO">
+    <link rel="icon" href="/images/logo.png" type="image/png">
+    <link rel="stylesheet" href="./styles.css">
+    <script src="./main.js" defer></script>
+</head>
+<body>
+    <div class="glass-bg"></div>
+    <div class="loading" id="loading">
+        <div class="loading-text">Загрузка...</div>
+    </div>
+
+    <button class="theme-toggle" id="themeToggle">
+        <span id="themeIcon">☀️</span>
+        <span id="themeText">Ариец</span>
+    </button>
+
+    <div class="container">
+        <div class="glass-card">
+            <h1 id="mainTitle">С ДЕДОМ<br>НЕ СКУФИСЬ</h1>
+            <h2 id="mainSubtitle">ПОДЕЛИСЬ</h2>
+
+    
+            <div class="player-container">
+                <div class="player-header">
+                    <h3 id="channelTitle">🎮 ДЕД</h3>
+                    <div class="channel-switcher">
+                        <label for="channelSelect">ЛАЙВ:</label>
+                        <select id="channelSelect">
+                            <option value="madkulolo">старого</option>
+                            <option value="mrrmaikl">опасной</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="player-aspect-ratio">
+                    <iframe id="streamPlayer" src="https://stream.deduso.su/b4f30518-04f7-4a78-a3a3-5ce0b836a160.html" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div class="btn-group" id="btnGroup">
+                <a href="https://www.donationalerts.com/r/madkulolo" target="_blank" class="glass-btn danger">
+                    <span>💸 Донатируй деду</span>
+                </a>
+                <a href="https://boosty.to/madkulolo" target="_blank" class="glass-btn primary">
+                    <span>⭐ Батя гордился бы тобой?</span>
+                </a>
+                <a href="https://memealerts.com/madkulolo" target="_blank" class="glass-btn primary">
+                    <span>🎭 Мемный алёрт</span>
+                </a>
+            </div>
+
+            <div class="social-links" id="socialLinks">
+                <a href="https://vk.com/kulologame_s" target="_blank" class="social-link" title="VK">🎮</a>
+                <a href="https://www.youtube.com/channel/UCVaL-dYvw-xIWv8sogeDylg" target="_blank" class="social-link" title="YouTube">📺</a>
+                <a href="https://www.twitch.tv/madkulolo" target="_blank" class="social-link" title="Twitch">📡</a>
+                <a href="https://t.me/+tl9RiWcbMVw5NzAy" target="_blank" class="social-link" title="Telegram">✈️</a>
+                <a href="mailto:ads@mikhail.one" target="_blank" class="social-link" title="Email">✉️</a>
+                <a href="https://www.tiktok.com/@madkulolo" target="_blank" class="social-link" title="TikTok">🎵</a>
+                <a href="/glass/commands.html" class="social-link" title="Команды">⌨️</a>
+                <a href="/glass/eyes.html" class="social-link" title="Узри">👁</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="stream-banner" id="streamBanner">
+        <div class="live-dot"></div>
+        <a href="https://www.twitch.tv/madkulolo" target="_blank">🔴 Стрим онлайн</a>
+        <button class="close-banner" id="closeBannerBtn">✕</button>
+    </div>
+
+</body>
+</html>
