@@ -77,34 +77,36 @@ class BannerManager {
 class StreamStatus {
     static async checkStatus() {
         try {
-            const response = await fetch('./monitors.json');
+            const response = await fetch('https://api.twitch.tv/helix/streams?user_login=madkulolo', {
+                headers: {
+                    'Client-ID': 'gp762nuuoqcoxypju8c569th9wz7q5',
+                    'Authorization': 'Bearer nicnpw2xfm36f0fewnz1dtzww9i3hj'
+                }
+            });
             const data = await response.json();
+            const isLive = data.data && data.data.length > 0 && data.data[0].type === 'live';
             
             const streamBanner = document.getElementById('streamBanner');
-            if (streamBanner && data.isLive) {
+            if (streamBanner && isLive) {
                 streamBanner.classList.add('active');
             }
             
             const backBtn = document.getElementById('backBtn');
             const backText = document.getElementById('backText');
-            if (backBtn && backText && data.isLive) {
+            if (backBtn && backText && isLive) {
                 backBtn.href = 'https://www.twitch.tv/madkulolo';
                 backText.textContent = '🔴 Назад на стрим';
                 backBtn.classList.add('live');
             }
             
             const eyesBackBtn = document.querySelector('.back-btn:not(#backBtn)');
-            if (eyesBackBtn && data.isLive && !backBtn) {
+            if (eyesBackBtn && isLive && !backBtn) {
                 eyesBackBtn.href = 'https://www.twitch.tv/madkulolo';
                 eyesBackBtn.textContent = '🔴 Назад на стрим';
                 eyesBackBtn.classList.add('live');
             }
         } catch (error) {
             console.error('Stream check failed:', error);
-            const streamBanner = document.getElementById('streamBanner');
-            if (streamBanner) {
-                streamBanner.classList.add('active');
-            }
         }
     }
 }
