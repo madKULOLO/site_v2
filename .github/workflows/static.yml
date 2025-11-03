@@ -5,6 +5,10 @@ on:
   # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
+    
+  # Runs periodically every 5 minutes
+  schedule:
+    - cron: '*/5 * * * *'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -22,8 +26,42 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Single deploy job since we're just deploying
+  # Fetch Twitch stream status
+  fetch-status:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Fetch stream status
+        id: fetch
+        run: |
+          # Fetch stream status from Twitch API
+          response=$(curl -s -H "Client-ID: ${{ secrets.TWITCH_CLIENT_ID }}" \
+            -H "Authorization: Bearer ${{ secrets.TWITCH_CLIENT_SECRET }}" \
+            "https://api.twitch.tv/helix/streams?user_login=madkulolo")
+          
+          # Check if stream is live
+          is_live=$(echo "$response" | jq -r '.data | length > 0 and .[0].type == "live"')
+          
+          # Create monitors.json with stream status
+          echo "{\"isLive\": $is_live, \"lastCheck\": \"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"}" > monitors.json
+          
+          # Commit and push if file changed
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add monitors.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update stream status"
+            git push
+          fi
+        continue-on-error: true
+
+  # Deploy job
   deploy:
+    needs: fetch-status
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -31,13 +69,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        
       - name: Setup Pages
         uses: actions/configure-pages@v5
+        
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
           path: '.'
+          
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

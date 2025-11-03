@@ -52,13 +52,13 @@
             </div>
 
             <div class="btn-group" id="btnGroup">
-                <a href="https://www.donationalerts.com/r/madkulolo" target="_blank" class="glass-btn danger">
+                <a href="https://www.donationalerts.com/r/madkulolo" target="_blank" class="glass-btn white">
                     <span>💸 Донатируй деду</span>
                 </a>
                 <a href="https://boosty.to/madkulolo" target="_blank" class="glass-btn primary">
                     <span>⭐ Батя гордился бы тобой?</span>
                 </a>
-                <a href="https://memealerts.com/madkulolo" target="_blank" class="glass-btn primary">
+                <a href="https://memealerts.com/madkulolo" target="_blank" class="glass-btn danger">
                     <span>🎭 Мемный алёрт</span>
                 </a>
             </div>
@@ -76,10 +76,21 @@
         </div>
     </div>
 
-    <div class="stream-banner" id="streamBanner">
-        <div class="live-dot"></div>
-        <a href="https://www.twitch.tv/madkulolo" target="_blank">🔴 Стрим онлайн</a>
-        <button class="close-banner" id="closeBannerBtn">✕</button>
+    <div class="modal-overlay" id="donationModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>💸 Донат деду</h3>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Деду будет приятно получить от тебя 15 рублей!</p>
+                <p>После перехода на сайт доната, ты сможешь выбрать любую сумму, но дед особенно ждёт 15 рублей.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn secondary" id="cancelDonation">Отмена</button>
+                <button class="modal-btn primary" id="confirmDonation">Перейти к донату</button>
+            </div>
+        </div>
     </div>
 
 </body>

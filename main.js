@@ -9,7 +9,6 @@ class ThemeManager {
     init() {
         this.applyTheme(this.currentTheme);
         this.setupThemeToggle();
-        // Update theme icon and text immediately
         this.updateThemeIcon(this.currentTheme);
     }
 
@@ -78,29 +77,34 @@ class BannerManager {
 class StreamStatus {
     static async checkStatus() {
         try {
-            const response = await fetch('https://api.twitch.tv/helix/streams?user_login=madkulolo', {
-                headers: {
-                    'Client-ID': 'gp762nuuoqcoxypju8c569th9wz7q5',
-                    'Authorization': 'Bearer nicnpw2xfm36f0fewnz1dtzww9i3hj'
-                }
-            });
+            const response = await fetch('./monitors.json');
             const data = await response.json();
-            const isLive = data.data && data.data.length > 0 && data.data[0].type === 'live';
             
             const streamBanner = document.getElementById('streamBanner');
-            if (streamBanner && isLive) {
+            if (streamBanner && data.isLive) {
                 streamBanner.classList.add('active');
             }
             
             const backBtn = document.getElementById('backBtn');
             const backText = document.getElementById('backText');
-            if (backBtn && backText && isLive) {
+            if (backBtn && backText && data.isLive) {
                 backBtn.href = 'https://www.twitch.tv/madkulolo';
                 backText.textContent = '🔴 Назад на стрим';
                 backBtn.classList.add('live');
             }
+            
+            const eyesBackBtn = document.querySelector('.back-btn:not(#backBtn)');
+            if (eyesBackBtn && data.isLive && !backBtn) {
+                eyesBackBtn.href = 'https://www.twitch.tv/madkulolo';
+                eyesBackBtn.textContent = '🔴 Назад на стрим';
+                eyesBackBtn.classList.add('live');
+            }
         } catch (error) {
             console.error('Stream check failed:', error);
+            const streamBanner = document.getElementById('streamBanner');
+            if (streamBanner) {
+                streamBanner.classList.add('active');
+            }
         }
     }
 }
@@ -178,6 +182,8 @@ class PlayerManager {
             setInterval(() => {
                 this.hideIframeScrollbars();
             }, 2000);
+            
+            this.switchChannel('madkulolo');
         }
     }
 
@@ -198,14 +204,52 @@ class PlayerManager {
             
             if (btnGroup) {
                 btnGroup.innerHTML = '';
-                channel.donateButtons.forEach(btn => {
+                const isDangerousCabin = channel.id === 'mrrmaikl';
+                
+                channel.donateButtons.forEach((btn, index) => {
                     const a = document.createElement('a');
                     a.href = btn.href;
                     a.target = '_blank';
-                    a.className = btn.href.includes('donationalerts') || btn.href.includes('memealerts') ? 'glass-btn danger' : 'glass-btn primary';
-                    a.innerHTML = `<span>${btn.text}</span>`;
+                    a.id = `donation-btn-${index}`;
+                    
+                    if (isDangerousCabin) {
+                        a.className = 'glass-btn danger';
+                    } else {
+                        if (index === 0) {
+                            a.className = 'glass-btn white';
+                        } else if (index === 1) {
+                            a.className = 'glass-btn primary';
+                        } else {
+                            a.className = 'glass-btn danger';
+                        }
+                    }
+                    
+                    if (btn.href.includes('donationalerts') || btn.href.includes('memealerts')) {
+                        a.innerHTML = `<span>${btn.text}</span>`;
+                    } else {
+                        a.innerHTML = `<span>${btn.text}</span>`;
+                    }
+                    
                     btnGroup.appendChild(a);
                 });
+                
+                setTimeout(() => {
+                    channel.donateButtons.forEach((btn, index) => {
+                        if (btn.href.includes('donationalerts') || btn.href.includes('memealerts')) {
+                            const buttonElement = document.getElementById(`donation-btn-${index}`);
+                            if (buttonElement) {
+                                buttonElement.addEventListener('click', function(e) {
+                                    e.preventDefault();
+                                    if (btn.text === '💸 Донатируй деду') {
+                                        showDonationModal(btn.href);
+                                    } else {
+                                        window.open(btn.href, '_blank');
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }, 0);
             }
             
             if (socialLinks) {
@@ -237,6 +281,8 @@ class PlayerManager {
         
         const iframe = streamPlayer;
         
+        iframe.scrolling = "no";
+        iframe.frameBorder = "0";    
         iframe.style.width = '100%';
         iframe.style.height = '100%';
         iframe.style.overflow = 'hidden';
@@ -517,6 +563,49 @@ document.addEventListener('DOMContentLoaded', function() {
     BannerManager.initCloseBanner();
     
     StreamStatus.checkStatus();
+    
+    const modal = document.getElementById('donationModal');
+    if (modal) {
+        const closeModal = document.getElementById('closeModal');
+        const cancelBtn = document.getElementById('cancelDonation');
+        const confirmBtn = document.getElementById('confirmDonation');
+        
+        modal.dataset.donationUrl = '';
+        
+        function closeModalFunc() {
+            modal.classList.remove('active');
+        }
+        
+        if (closeModal) {
+            closeModal.addEventListener('click', closeModalFunc);
+        }
+        
+        if (cancelBtn) {
+            cancelBtn.addEventListener('click', closeModalFunc);
+        }
+        
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModalFunc();
+            }
+        });
+        
+        if (confirmBtn) {
+            confirmBtn.addEventListener('click', function() {
+                const donationUrl = modal.dataset.donationUrl;
+                if (donationUrl) {
+                    window.open(donationUrl, '_blank');
+                }
+                closeModalFunc();
+            });
+        }
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModalFunc();
+            }
+        });
+    }
 });
 
 class EyesPageManager {
@@ -525,3 +614,11 @@ class EyesPageManager {
 }
 
 window.copyToClipboard = CommandUtils.copyToClipboard;
+
+function showDonationModal(donationUrl) {
+    const modal = document.getElementById('donationModal');
+    if (modal) {
+        modal.dataset.donationUrl = donationUrl;
+        modal.classList.add('active');
+    }
+}
