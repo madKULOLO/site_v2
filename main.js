@@ -132,8 +132,7 @@ class PlayerManager {
                     { href: 'https://t.me/+tl9RiWcbMVw5NzAy', icon: '✈️' },
                     { href: 'mailto:ads@mikhail.one', icon: '✉️' },
                     { href: 'https://www.tiktok.com/@madkulolo', icon: '🎵' },
-                    { href: '/commands.html', icon: '⌨️' },
-                    { href: '/eyes.html', icon: '👁️' }
+                    { href: './commands.html', icon: '⌨️' }
                 ]
             },
             {
@@ -147,13 +146,17 @@ class PlayerManager {
                     { href: 'https://www.donationalerts.com/r/mrrmaikl', text: 'донат на лезвие' }
                 ],
                 socialLinks: [
-                    { href: 'tel:8-800-2000-122', icon: '📞' },
+                    { href: this.isMobile() ? 'tel:8-800-2000-122' : 'https://telefon-doveriya.ru', icon: '📞', title: this.isMobile() ? 'Позвонить' : 'Перейти' },
                     { href: 'https://t.me/mrrmaikl', icon: '✈️' },
                     { href: 'https://www.twitch.tv/mrrmaikl', icon: '📡' }
                 ]
             }
         ];
         this.init();
+    }
+
+    isMobile() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     }
 
     init() {
