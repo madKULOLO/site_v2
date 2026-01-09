@@ -417,7 +417,7 @@ class CommandUtils {
                 this.createFloatingElement('💖 MrrMaikl — ЛУЧШАЯ ЖЕНА ДЕДА! 💖', '2.5em', 3000);
             },
             'alonerus': () => {
-                this.createImageElement('/images/neko-8.jpg', 'neko', 3500);
+                this.createImageElement('./images/neko-8.jpg', 'neko', 3500);
             },
             'kessidi': () => {
                 this.createFloatingElement('🦵<b>Kessidi</b>, дедовик ждёт твои ножки уже много лет... <br>Когда же деда дождётся? 😭🦵', '2em', 4000);
