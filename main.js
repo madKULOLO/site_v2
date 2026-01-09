@@ -132,7 +132,8 @@ class PlayerManager {
                     { href: 'https://t.me/+tl9RiWcbMVw5NzAy', icon: '✈️' },
                     { href: 'mailto:ads@mikhail.one', icon: '✉️' },
                     { href: 'https://www.tiktok.com/@madkulolo', icon: '🎵' },
-                    { href: './commands.html', icon: '⌨️' }
+                    { href: '/commands.html', icon: '⌨️' },
+                    { href: '/eyes.html', icon: '👁️' }
                 ]
             },
             {
