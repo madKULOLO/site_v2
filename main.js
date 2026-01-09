@@ -132,7 +132,8 @@ class PlayerManager {
                     { href: 'https://t.me/+tl9RiWcbMVw5NzAy', icon: '✈️' },
                     { href: 'mailto:ads@mikhail.one', icon: '✉️' },
                     { href: 'https://www.tiktok.com/@madkulolo', icon: '🎵' },
-                    { href: '/glass/commands.html', icon: '⌨️' }
+                    { href: '/commands.html', icon: '⌨️' },
+                    { href: '/eyes.html', icon: '👁️' }
                 ]
             },
             {
@@ -412,7 +413,7 @@ class CommandUtils {
                 this.createFloatingElement('💖 MrrMaikl — ЛУЧШАЯ ЖЕНА ДЕДА! 💖', '2.5em', 3000);
             },
             'alonerus': () => {
-                this.createImageElement('../images/neko-8.jpg', 'neko', 3500);
+                this.createImageElement('./images/neko-8.jpg', 'neko', 3500);
             },
             'kessidi': () => {
                 this.createFloatingElement('🦵<b>Kessidi</b>, дедовик ждёт твои ножки уже много лет... <br>Когда же деда дождётся? 😭🦵', '2em', 4000);
