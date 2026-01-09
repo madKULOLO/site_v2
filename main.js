@@ -118,7 +118,7 @@ class PlayerManager {
                 id: 'madkulolo',
                 title: 'С ДЕДОМ<br>НЕ СКУФИСЬ',
                 subtitle: 'ПОДЕЛИСЬ',
-                playerUrl: 'https://stream.deduso.su/b4f30518-04f7-4a78-a3a3-5ce0b836a160.html#hide-scrollbars',
+                playerUrl: 'https://stream.deduso.su/b4f30518-04f7-4a78-a3a3-5ce0b836a160#hide-scrollbars',
                 channelTitle: '🎮 ДЕД',
                 donateButtons: [
                     { href: 'https://www.donationalerts.com/r/madkulolo', text: '💸 Донатируй деду' },
@@ -132,8 +132,8 @@ class PlayerManager {
                     { href: 'https://t.me/+tl9RiWcbMVw5NzAy', icon: '✈️' },
                     { href: 'mailto:ads@mikhail.one', icon: '✉️' },
                     { href: 'https://www.tiktok.com/@madkulolo', icon: '🎵' },
-                    { href: '/commands.html', icon: '⌨️' },
-                    { href: '/eyes.html', icon: '👁️' }
+                    { href: '/commands', icon: '⌨️' },
+                    { href: '/eyes', icon: '👁️' }
                 ]
             },
             {
@@ -628,4 +628,5 @@ function showDonationModal(donationUrl) {
         modal.dataset.donationUrl = donationUrl;
         modal.classList.add('active');
     }
+
 }
